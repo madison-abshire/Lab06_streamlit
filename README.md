@@ -8,13 +8,11 @@ poetry install --no-root
 streamlit run app.py
 ```
 
-## What you will do in the lab
-- Build a layout (tabs or 2 columns)
-- Add filters that modify a shared dataframe
-- Wire up at least 1 Plotly chart
-- Add metrics and additional views as an extension
-
 ## Submission (for students)
-- Streamlit deployed link
-- GitHub repo link
+- [Streamlit deployed link](https://lab06appgit-f8xbpparkwkcntcjhevdvd.streamlit.app/)
+- [GitHub repo link](https://github.com/madison-abshire/Lab06_streamlit)
 - Short README describing audience + tasks
+
+## Audience and Tasks
+- Possible Audience: Property manager, city employee tracking rental property statistics
+- Tasks: View monthly incident/complaint metrics, viewing by response time and neighborhood distribution.
