@@ -38,3 +38,15 @@ def plot_borough_bar(df: pd.DataFrame) -> None:
         title=None,
     )
     st.plotly_chart(fig, use_container_width=True)
+
+ # TODO (IN-CLASS): Add a second view here (e.g., count by borough)
+def plot_borough_bar_count(df: pd.DataFrame) -> None:
+    """Plotting count by borough."""
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    agg = df.groupby("borough", as_index=False).size().reset_index()
+
+    fig = px.bar(agg, x="borough", y="size", title=None)
+    st.plotly_chart(fig, width="stretch")

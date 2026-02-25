@@ -4,9 +4,7 @@ This repository is intentionally incomplete. It is designed for a guided live bu
 
 ## Quickstart
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # (Windows: .venv\Scripts\activate)
-pip install -r requirements.txt
+poetry install --no-root
 streamlit run app.py
 ```
 

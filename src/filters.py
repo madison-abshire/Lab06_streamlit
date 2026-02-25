@@ -14,8 +14,8 @@ def render_filters(df: pd.DataFrame) -> dict:
     channel = st.sidebar.selectbox("Channel", channels, index=0)
 
     # TODO (DEMO): Convert this selectbox to a multiselect (and update filtering logic)
-    complaint = st.sidebar.selectbox("Complaint Type", ["All"] + complaint_types, index=0)
-
+    # complaint = st.sidebar.selectbox("Complaint Type", ["All"] + complaint_types, index=0)
+    complaint = st.sidebar.multiselect("Complaint Type", ["All"] + complaint_types, default="All")
     # Response time slider
     min_rt, max_rt = float(df["response_time_days"].min()), float(df["response_time_days"].max())
     rt_range = st.sidebar.slider(
@@ -48,13 +48,14 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     if selections["channel"] != "All":
         out = out[out["channel"] == selections["channel"]]
 
-    if selections["complaint"] != "All":
-        out = out[out["complaint_type"] == selections["complaint"]]
+    if "All" not in selections["complaint"]:
+        out = out[out["complaint_type"].isin(selections["complaint"])]
 
     lo, hi = selections["rt_range"]
     out = out[(out["response_time_days"] >= lo) & (out["response_time_days"] <= hi)]
 
     # TODO (IN-CLASS): Implement outlier capping when cap_outliers is checked
-    # HINT: use out["response_time_days"].quantile(0.99)
+    if selections["cap_outliers"]:
+        out = out[out["response_time_days"] < out["response_time_days"].quantile(0.99)]
 
     return out.reset_index(drop=True)
